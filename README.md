@@ -7,7 +7,7 @@ built with vite react app
 ## Installation
 
 - clone the project
-- run the following commans
+- run the following command
 
 ```javascript
 ` npm install
