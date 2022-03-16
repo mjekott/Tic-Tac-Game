@@ -4,12 +4,20 @@ import Square from './Square';
 type BoardProps = {
   handleClick: (position: number) => void;
   board: any[];
+  winningSquare: any[];
 };
 
-function Board({ handleClick, board }: BoardProps) {
-  const generateSquare = (postion: number) => (
-    <Square value={board[postion]} onClick={() => handleClick(postion)} />
-  );
+function Board({ handleClick, board, winningSquare }: BoardProps) {
+  const generateSquare = (postion: number) => {
+    const isWinning = winningSquare.includes(postion);
+    return (
+      <Square
+        value={board[postion]}
+        onClick={() => handleClick(postion)}
+        isWinning={isWinning}
+      />
+    );
+  };
 
   return (
     <div className="board">

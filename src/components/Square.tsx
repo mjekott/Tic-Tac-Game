@@ -5,6 +5,7 @@ type SquareProps = {
   value: number;
   children?: React.ReactNode;
   onClick: React.MouseEventHandler<HTMLButtonElement>;
+  isWinning: boolean;
 };
 
 export default function Square({
@@ -12,9 +13,15 @@ export default function Square({
   value,
   children,
   onClick,
+  isWinning,
 }: SquareProps) {
   return (
-    <button type={type} className="square" onClick={onClick}>
+    <button
+      type={type}
+      className="square"
+      onClick={onClick}
+      style={{ fontWeight: isWinning ? 'bold' : 'normal' }}
+    >
       {value}
     </button>
   );

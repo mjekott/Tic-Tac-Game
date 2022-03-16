@@ -10,19 +10,21 @@ export type Game = {
   isNext: boolean;
 };
 
+const INITAL_STATE = [
+  {
+    board: Array(9).fill(null),
+    isNext: false,
+  },
+];
+
 export default () => {
-  const [history, setHistory] = React.useState<Game[]>([
-    {
-      board: Array(9).fill(null),
-      isNext: false,
-    },
-  ]);
+  const [history, setHistory] = React.useState<Game[]>(INITAL_STATE);
 
   const [currentMove, setCurrentMove] = React.useState(0);
 
   const current: Game = history[currentMove];
 
-  const winner = calculateWinner(current.board);
+  const { winner, winningSquare } = calculateWinner(current.board);
   const message = winner
     ? `Winner is ${winner}`
     : `Next player is ${current.isNext ? 'x' : '0'}`;
@@ -46,11 +48,23 @@ export default () => {
 
   const moveTo = (value: number) => setCurrentMove(value);
 
+  const newGame = () => {
+    setHistory(INITAL_STATE);
+    setCurrentMove(0);
+  };
+
   return (
     <div className="app">
       <h1>TIC TAC GAME</h1>
       <StatusMessage winner={winner} current={current} />
-      <Board handleClick={handleSquareClick} board={current.board} />
+      <Board
+        handleClick={handleSquareClick}
+        board={current.board}
+        winningSquare={winningSquare}
+      />
+      <button type="button" onClick={newGame}>
+        Start new Game
+      </button>
       <History history={history} moveTo={moveTo} currentMove={currentMove} />
     </div>
   );
