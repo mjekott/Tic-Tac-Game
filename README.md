@@ -3,6 +3,7 @@
 ## Description
 
 built with vite react app
+visit ![link](https://mjekott-tic-tac-game.surge.sh/)
 
 ## Installation
 
