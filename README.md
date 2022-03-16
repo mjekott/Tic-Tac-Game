@@ -3,7 +3,7 @@
 ## Description
 
 built with vite react app
-visit ![link](https://mjekott-tic-tac-game.surge.sh/)
+<a href="https://mjekott-tic-tac-game.surge.sh/">demo</a>
 
 ## Installation
 
