@@ -2,36 +2,56 @@ import * as React from 'react';
 import Board from './components/Board';
 import './styles/root.scss';
 import { calculateWinner } from './helpers/calculateWinner';
+import History from './components/history';
+import StatusMessage from './components/StatusMessage';
+
+export type Game = {
+  board: any[];
+  isNext: boolean;
+};
 
 export default () => {
-  const [board, setBoard] = React.useState(Array(9).fill(null));
-  const [isNext, setIsNext] = React.useState(false);
+  const [history, setHistory] = React.useState<Game[]>([
+    {
+      board: Array(9).fill(null),
+      isNext: false,
+    },
+  ]);
 
-  const winner = calculateWinner(board);
+  const [currentMove, setCurrentMove] = React.useState(0);
+
+  const current: Game = history[currentMove];
+
+  const winner = calculateWinner(current.board);
   const message = winner
     ? `Winner is ${winner}`
-    : `Next player is ${isNext ? 'x' : '0'}`;
+    : `Next player is ${current.isNext ? 'x' : '0'}`;
 
   const handleSquareClick = (position: number) => {
-    if (board[position] || winner) {
+    if (current.board[position] || winner) {
       return;
     }
-    setBoard((prev) => {
-      return prev.map((value, index) => {
+    setHistory((prev) => {
+      const last = prev[prev.length - 1];
+      const newBoard = last.board.map((value, index) => {
         if (index === position) {
-          return isNext ? 'x' : '0';
+          return last.isNext ? 'x' : '0';
         }
         return value;
       });
+      return prev.concat({ board: newBoard, isNext: !last.isNext });
     });
-    setIsNext(!isNext);
+    setCurrentMove((prev) => prev + 1);
   };
+
+  const moveTo = (value: number) => setCurrentMove(value);
 
   return (
     <div className="app">
       <h1>TIC TAC GAME</h1>
-      <p>{message} </p>
-      <Board handleClick={handleSquareClick} board={board} />
+      <StatusMessage winner={winner} current={current} />
+      <Board handleClick={handleSquareClick} board={current.board} />
+      <History history={history} moveTo={moveTo} currentMove={currentMove} />
     </div>
   );
 };
