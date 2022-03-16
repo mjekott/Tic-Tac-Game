@@ -27,7 +27,7 @@ export default () => {
   const { winner, winningSquare } = calculateWinner(current.board);
   const message = winner
     ? `Winner is ${winner}`
-    : `Next player is ${current.isNext ? 'x' : '0'}`;
+    : `Next player is ${current.isNext ? 'X' : '0'}`;
 
   const handleSquareClick = (position: number) => {
     if (current.board[position] || winner) {
@@ -37,7 +37,7 @@ export default () => {
       const last = prev[prev.length - 1];
       const newBoard = last.board.map((value, index) => {
         if (index === position) {
-          return last.isNext ? 'x' : '0';
+          return last.isNext ? 'X' : '0';
         }
         return value;
       });
@@ -55,16 +55,23 @@ export default () => {
 
   return (
     <div className="app">
-      <h1>TIC TAC GAME</h1>
+      <h1>
+        TIC <span className="text-green"> TAC</span> GAME
+      </h1>
       <StatusMessage winner={winner} current={current} />
       <Board
         handleClick={handleSquareClick}
         board={current.board}
         winningSquare={winningSquare}
       />
-      <button type="button" onClick={newGame}>
+      <button
+        type="button"
+        onClick={newGame}
+        className={`btn-reset ${winner && 'active'}`}
+      >
         Start new Game
       </button>
+      <h2 style={{ fontWeight: 'bold' }}>Current Game History</h2>
       <History history={history} moveTo={moveTo} currentMove={currentMove} />
     </div>
   );

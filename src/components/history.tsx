@@ -9,20 +9,22 @@ type History = {
 
 export default function History({ history, moveTo, currentMove }: History) {
   return (
-    <ul>
-      {history.map((_, index) => {
-        return (
-          <li key={index}>
-            <button
-              type="button"
-              style={{ fontWeight: index === currentMove ? 'bold' : 'normal' }}
-              onClick={() => moveTo(index)}
-            >
-              {index === 0 ? 'Go to Game start' : `Go to move ${index}`}
-            </button>
-          </li>
-        );
-      })}
-    </ul>
+    <div className="history-wrapper">
+      <ul className="history">
+        {history.map((_, index) => {
+          return (
+            <li key={index}>
+              <button
+                type="button"
+                className={`btn-move ${index === currentMove && 'active'}`}
+                onClick={() => moveTo(index)}
+              >
+                {index === 0 ? 'Go to Game start' : `Go to move ${index}`}
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
   );
 }
