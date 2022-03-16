@@ -1,27 +1,14 @@
 import * as React from 'react';
 import Square from './Square';
 
-function Board() {
-  const [board, setBoard] = React.useState(Array(9).fill(null));
-  const [isNext, setIsNext] = React.useState(false);
+type BoardProps = {
+  handleClick: (position: number) => void;
+  board: any[];
+};
 
-  const handleSquareClick = (position: number) => {
-    if (board[position]) {
-      return;
-    }
-    setBoard((prev) => {
-      return prev.map((value, index) => {
-        if (index === position) {
-          return isNext ? 'x' : '0';
-        }
-        return value;
-      });
-    });
-    setIsNext(!isNext);
-  };
-
+function Board({ handleClick, board }: BoardProps) {
   const generateSquare = (postion: number) => (
-    <Square value={board[postion]} onClick={() => handleSquareClick(postion)} />
+    <Square value={board[postion]} onClick={() => handleClick(postion)} />
   );
 
   return (
