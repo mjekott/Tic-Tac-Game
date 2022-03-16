@@ -1,0 +1,36 @@
+{
+  "name": "tictacgame",
+  "version": "0.1.0",
+  "description": "",
+  "scripts": {
+    "start": "vite",
+    "build": "npm  run clear && vite build",
+    "typecheck": "tsc --noEmit",
+    "typewatch": "tsc --noEmit --watch",
+    "lint": "eslint src/**/*.js|.ts|.tsx|.jsx",
+    "format": "prettier --write src/**/*.js",
+    "format:lint": "npm run format && npm run lint",
+    "clear": "rimraf dist .parcel-cache"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.7",
+    "babel-eslint": "^10.1.0",
+    "babel-preset-nano-react-app": "^0.1.0",
+    "eslint": "^8.11.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-react": "^7.29.4",
+    "prettier": "^2.6.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^3.8.3",
+    "vite": "^2.6.7"
+  }
+}
